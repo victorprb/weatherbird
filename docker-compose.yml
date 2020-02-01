@@ -1,0 +1,8 @@
+version: '3'
+services:
+  wb:
+    build: .
+    volumes:
+      - .:/weatherbird
+    ports:
+      - "3000:3000"
