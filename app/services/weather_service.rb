@@ -8,21 +8,20 @@ module Weather
     end
 
     def weather_message
-      @data = client
-
+      @data = client.weather
       @message = "%.0f°C e %s em %s em %s." % [
-        @data.weather[:temperature],
-        @data.weather[:description],
-        @data.weather[:city],
+        @data[:temperature],
+        @data[:description],
+        @data[:city],
         Time.now.strftime('%d/%m'),
       ]
     end
     
     def forecast_message
-      @data = client
+      @data = client.forecast
       @forecast_message = []
 
-      @data.forecast[:weather].each do |key, value|
+      @data[:weather].each do |key, value|
         @forecast_message << "%.0f°C em %s" % [value, key]
       end
 

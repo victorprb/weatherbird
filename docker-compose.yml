@@ -6,3 +6,10 @@ services:
       - .:/weatherbird
     ports:
       - "3000:3000"
+    environment:
+      - "RAILS_ENV=development"
+      - "OWM_API_KEY=<your_openweathermap_api_key>"
+      - "TWITTER_CONSUMER_KEY=<your_twitter_consumer_key>"
+      - "TWITTER_CONSUMER_SECRET=<your_twitter_consumer_secret>"
+      - "TWITTER_ACCESS_TOKEN=<your_twitter_access_token>"
+      - "TWITTER_ACCESS_TOKEN_SECRET=<your_twitter_access_token_secret>"
