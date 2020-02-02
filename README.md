@@ -9,6 +9,7 @@ Get weather info from [Openweathermap API](https://openweathermap.org/api) and u
 
 ## API
 This application expose an API with a unique endpoint to tweet a message with a city weather info.
+
 | Endpoint | Method|
 |----------|:-----:|
 | /weather | POST  |
