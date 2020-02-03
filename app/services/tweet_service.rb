@@ -22,7 +22,7 @@ module Twitter
       @current_weather = @weather_service.weather_message
       @forecast_weather = @weather_service.forecast_message
 
-      unless @current_weather[:status] == :success || @forecast_weather[:status] == :success
+      unless @current_weather[:status].to_i == 200 && @forecast_weather[:status].to_i == 200
         raise 'Internal server error'
       else
         "#{@current_weather[:message]}\n#{@forecast_weather[:message]}"

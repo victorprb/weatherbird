@@ -9,7 +9,7 @@ module Weather
 
     def weather_message
       @data = client.weather
-      if @data[:status] == :success
+      if @data[:status].to_i == 200
         {
           status: @data[:status],
           message: "%.0f°C e %s em %s em %s." % [
@@ -29,14 +29,17 @@ module Weather
 
     def forecast_message
       @data = client.forecast
-      if @data[:status] == :success
+      if @data[:status].to_i == 200
         @forecast_message = []
 
         @data[:weather].each do |key, value|
           @forecast_message << "%.0f°C em %s" % [value, key]
         end
 
-        @message = "Média para os próximos dias:\n" + @forecast_message.join("\n")
+        {
+          status: @data[:status],
+          message: "Média para os próximos dias:\n" + @forecast_message.join("\n")
+        }
       else
         {
           status: @data[:status],

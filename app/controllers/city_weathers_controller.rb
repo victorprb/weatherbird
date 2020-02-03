@@ -15,7 +15,8 @@ class CityWeathersController < ApplicationController
     rescue => e
       @response = { status: 500, message: e }
     end
-    render json: @response, status: response[:status]
+
+    render json: @response, status: @response[:status]
   end
 
   private
