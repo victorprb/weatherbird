@@ -9,8 +9,13 @@ class CityWeathersController < ApplicationController
     weather_service = Weather::WeatherService.new(weather_params)
     tweet_service = Twitter::TweetService.new(weather_service)
 
-    tweet_service.tweet
-    render json: {status: 201, message: 'Tweet created'}, status: :created
+    begin
+      tweet_service.tweet
+      @response = {status: 201, message: 'Tweet message created'}
+    rescue => e
+      @response = { status: 500, message: e }
+    end
+    render json: @response, status: response[:status]
   end
 
   private

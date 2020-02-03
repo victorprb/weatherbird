@@ -9,23 +9,40 @@ module Weather
 
     def weather_message
       @data = client.weather
-      @message = "%.0f°C e %s em %s em %s." % [
-        @data[:temperature],
-        @data[:description],
-        @data[:city],
-        Time.now.strftime('%d/%m'),
-      ]
+      if @data[:status] == :success
+        {
+          status: @data[:status],
+          message: "%.0f°C e %s em %s em %s." % [
+            @data[:temperature],
+            @data[:description],
+            @data[:city],
+            Time.now.strftime('%d/%m'),
+          ]
+        }
+      else
+        {
+          status: @data[:status],
+          message: @data[:message]
+        }
+      end
     end
-    
+
     def forecast_message
       @data = client.forecast
-      @forecast_message = []
+      if @data[:status] == :success
+        @forecast_message = []
 
-      @data[:weather].each do |key, value|
-        @forecast_message << "%.0f°C em %s" % [value, key]
+        @data[:weather].each do |key, value|
+          @forecast_message << "%.0f°C em %s" % [value, key]
+        end
+
+        @message = "Média para os próximos dias:\n" + @forecast_message.join("\n")
+      else
+        {
+          status: @data[:status],
+          message: @data[:message]
+        }
       end
-
-      @message = "Média para os próximos dias:\n" + @forecast_message.join("\n")
     end
 
     private
